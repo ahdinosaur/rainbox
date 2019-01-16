@@ -3,10 +3,11 @@ rainbox_size_y = 93;
 rainbox_size_z = 35;
 rainbox_thickness_xy = 3.3;
 rainbox_thickness_z = 3.3;
-rainbox_tie_thickness = 6;
+rainbox_tie_thickness = 5;
+rainbox_tie_length = 20;
 rainbox_corner_radius = 1;
 rainbox_barrier_height = rainbox_size_z / 2;
-rainbox_barrier_tolerance = 0.6;
+rainbox_barrier_tolerance = 0.5;
 rainbox_hole_size_y = 20;
 rainbox_hole_size_z = 14;
 rainbox_hole_margin_z = 1;
@@ -29,14 +30,33 @@ top();
 
 module top () {
   difference () {
-    rounded_box(
-      size = [
-        rainbox_size_x + 4 * rainbox_thickness_xy + 2 * rainbox_barrier_tolerance,
-        rainbox_size_y + 6 * rainbox_thickness_xy + 2 * rainbox_barrier_tolerance + 2 * rainbox_tie_thickness + 2 * rainbox_corner_radius,
-        rainbox_size_z + rainbox_thickness_z - rainbox_barrier_height
-      ],
-      radius = rainbox_corner_radius
-    );
+    union () {
+      rounded_box(
+        size = [
+          rainbox_size_x + 4 * rainbox_thickness_xy + 2 * rainbox_barrier_tolerance,
+          rainbox_size_y + 4 * rainbox_thickness_xy + 2 * rainbox_barrier_tolerance,
+          rainbox_thickness_z + rainbox_barrier_height
+        ],
+        radius = rainbox_corner_radius
+      );
+
+      for (tie_side = [-1, 1]) {
+        translate(
+          [
+            0,
+            tie_side * (1/2 * rainbox_size_y + 3 * rainbox_thickness_xy + 2 * rainbox_corner_radius),
+            0
+          ]
+        )
+        rounded_box(
+          size = [
+            rainbox_tie_length + 2 * rainbox_thickness_xy,
+            rainbox_tie_thickness + 2 * rainbox_thickness_xy,
+            rainbox_thickness_z + rainbox_barrier_height
+          ]
+        );
+      }
+    }
 
     translate(
       [
@@ -64,7 +84,7 @@ module top () {
       )
       rounded_box(
         size = [
-          rainbox_size_x + 2 * rainbox_thickness_xy,
+          rainbox_tie_length,
           rainbox_tie_thickness,
           rainbox_size_z
         ]
@@ -79,7 +99,7 @@ module bottom () {
       rounded_box(
         size = [
           rainbox_size_x + 4 * rainbox_thickness_xy + 2 * rainbox_barrier_tolerance,
-          rainbox_size_y + 6 * rainbox_thickness_xy + 2 * rainbox_barrier_tolerance + 2 * rainbox_tie_thickness + 2 * rainbox_corner_radius,
+          rainbox_size_y + 4 * rainbox_thickness_xy + 2 * rainbox_barrier_tolerance,
           rainbox_size_z + rainbox_thickness_z - rainbox_barrier_height
         ],
         radius = rainbox_corner_radius
@@ -100,6 +120,23 @@ module bottom () {
         ],
         radius = rainbox_corner_radius
       );
+
+      for (tie_side = [-1, 1]) {
+        translate(
+          [
+            0,
+            tie_side * (1/2 * rainbox_size_y + 3 * rainbox_thickness_xy + 2 * rainbox_corner_radius),
+            0
+          ]
+        )
+        rounded_box(
+          size = [
+            rainbox_tie_length + 2 * rainbox_thickness_xy,
+            rainbox_tie_thickness + 2 * rainbox_thickness_xy,
+            rainbox_size_z + rainbox_thickness_z - rainbox_barrier_height
+          ]
+        );
+      }
     }
 
     translate(
@@ -128,7 +165,7 @@ module bottom () {
       )
       rounded_box(
         size = [
-          rainbox_size_y + 2 * rainbox_thickness_xy,
+          rainbox_tie_length,
           rainbox_tie_thickness,
           rainbox_size_z
         ]
