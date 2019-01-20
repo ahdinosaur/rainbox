@@ -1,21 +1,26 @@
-rainbox_size_x = 99;
-rainbox_size_y = 93;
+// rainbox_size_x = 99;
+// rainbox_size_y = 93;
+// rainbox_size_z = 35;
+rainbox_size_x = 85;
+rainbox_size_y = 55;
 rainbox_size_z = 35;
-rainbox_thickness_xy = 3.3;
-rainbox_thickness_z = 3.3;
+rainbox_thickness_xy = 2.49;
+rainbox_thickness_z = 2.49;
 rainbox_tie_thickness = 5;
 rainbox_tie_length = 20;
 rainbox_corner_radius = 1;
 rainbox_barrier_height = rainbox_size_z / 2;
 rainbox_barrier_tolerance = 0.5;
-rainbox_hole_size_y = 20;
-rainbox_hole_size_z = 14;
+// rainbox_hole_size_y = 20;
+// rainbox_hole_size_z = 14;
+rainbox_hole_size_y = 10;
+rainbox_hole_size_z = 10;
 rainbox_hole_margin_z = 1;
 
 INFINITESIMAL = 0.01;
 INFINITY = 100;
 
-bottom();
+// bottom();
 
 /*
 translate(
@@ -25,8 +30,8 @@ translate(
     0
   ]
 )
-top();
 */
+top();
 
 module top () {
   difference () {
